@@ -10,6 +10,8 @@ import Places from "./pages/Places";
 import Bookings from "./pages/Bookings";
 import PlacesForm from "./pages/PlacesForm";
 import NotFound from "./pages/NotFound";
+import SinglePlace from "./pages/SinglePlace";
+import SingleBooking from "./pages/SingleBooking";
 
 axios.defaults.baseURL = "http://localhost:4000/api";
 axios.defaults.withCredentials = true;
@@ -28,9 +30,11 @@ function App() {
           <Route path="/account/places" element={<Places />} />
           <Route path="/account/places/new" element={<PlacesForm />} />
           <Route path="/account/places/:id" element={<PlacesForm />} />
+          <Route path="/place/:id" element={<SinglePlace />} />
           <Route path="/account/bookings" element={<Bookings />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/account/bookings/:id" element={<SingleBooking />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </UserContextProvider>
   )

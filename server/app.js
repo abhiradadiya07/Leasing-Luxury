@@ -12,8 +12,10 @@ const app = express();
 const imageDownloader = require("image-downloader");
 const UserModel = require("./model/User");
 const PlaceModel = require("./model/Place");
+const BookingModel = require("./model/Booking");
 // const { uploadToCloudinary } = require("./helper/upload");
 const { authMiddleware } = require("./middleware/authToken");
+const { log } = require("console");
 
 // Database connection
 connectDb();
@@ -100,6 +102,7 @@ app.post("/api/login", async (req, res) => {
         console.log(token, userDoc);
         // req.user = userData;
         // res.json("***********")
+        // req.session.user = userData;
         res.cookie("token", token).json(userDoc);
       }
     );
@@ -116,6 +119,7 @@ app.get("/api/profile", async (req, res) => {
   // const { name, email, _id } = await UserModel.findById(userData._id);
   // res.json({ name, email, _id });
   const { token } = req.cookies;
+  console.log(token);
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, {}, async (err, userData) => {
       if (err) throw err;
@@ -301,7 +305,7 @@ app.get("/api/user-places", authMiddleware, async (req, res) => {
   }
 });
 
-app.get("/api/places/:id", authMiddleware, async (req, res) => {
+app.get("/api/places/:id", async (req, res) => {
   const { id } = req.params;
   res.json(await PlaceModel.findById(id));
 });
@@ -310,12 +314,23 @@ app.get("/api/places", async (req, res) => {
   res.json(await PlaceModel.find());
 });
 
-app.post("/api/bookings", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
-  const userData = await getUserDataFromReq(req);
+app.post("/api/bookings", authMiddleware, async (req, res) => {
+  const userData = req.user;
   const { place, checkIn, checkOut, numberOfGuests, name, phone, price } =
     req.body;
-  Booking.create({
+
+  if (
+    !place ||
+    !checkIn ||
+    !checkOut ||
+    !numberOfGuests ||
+    !name ||
+    !phone ||
+    !price
+  ) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+  BookingModel.create({
     place,
     checkIn,
     checkOut,
@@ -333,10 +348,14 @@ app.post("/api/bookings", async (req, res) => {
     });
 });
 
-app.get("/api/bookings", async (req, res) => {
-  mongoose.connect(process.env.MONGO_URL);
-  const userData = await getUserDataFromReq(req);
-  res.json(await Booking.find({ user: userData.id }).populate("place"));
+app.get("/api/bookings", authMiddleware, async (req, res) => {
+  const userData = req.user;
+  console.log(userData);
+  // const userData = await getUserDataFromReq(req);
+  const bookData = await BookingModel.find({ user: userData.id }).populate(
+    "place"
+  );
+  res.json(bookData);
 });
 
 const serverPort = process.env.PORT || 6000;

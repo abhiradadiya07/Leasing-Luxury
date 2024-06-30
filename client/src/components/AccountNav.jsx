@@ -12,7 +12,7 @@ export default function AccountNav() {
     subpage = "profile"
   }
   const linkClasses = useCallback((type) => {
-    let classes = "px-6 mx-2 py-2 inline-flex gap-2 rounded-full";
+    let classes = "px-6 mx-2 py-2 inline-flex justify-center gap-2 rounded-full";
     if (type === subpage) {
       classes += " bg-primary text-white";
     } else {
@@ -22,7 +22,7 @@ export default function AccountNav() {
   }, [subpage])
 
   return (
-    <nav className="w-full text-center mt-10 gap-2 mb-8">
+    <nav className="mt-10 gap-2 mb-8 flex flex-col justify-center sm:flex-row">
       <Link to={"/account"} className={linkClasses("profile")}>
         <UserRound />
         My Profile

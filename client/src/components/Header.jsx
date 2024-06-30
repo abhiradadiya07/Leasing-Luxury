@@ -9,9 +9,9 @@ const Header = () => {
     <header className="flex justify-between  w-full h-14 items-center">
       <Link to={"/"} className="flex text-2xl gap-2 ">
         <Map className="w-10 h-10" />
-        <span className="font-bold text-3xl">Leasing Luxury</span>
+        <span className="font-bold text-3xl hidden sm:inline">Leasing Luxury</span>
       </Link>
-      <div className="flex py-2 px-4  gap-2 rounded-full border border-gray-300 shadow-md shadow-gray-300 ">
+      <div className="hidden md:flex py-2 px-4  gap-2 rounded-full border border-gray-300 shadow-md shadow-gray-300">
         <div className="">Anywhere</div>
         <div className="border-l border-gray-300"></div>
         <div className="">Any week</div>

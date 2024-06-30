@@ -16,44 +16,26 @@ export default function Places() {
       setPlaces(data);
     });
   }, []);
-  // useEffect(() => {
-  //   if (!id) {
-  //     return;
-  //   }
-  //   axios.get("/places/" + id).then((response) => {
-  //     const { data } = response;
-  //     setTitle(data.title);
-  //     setAddress(data.address);
-  //     setAddedPhotos(data.photos);
-  //     setDescription(data.description);
-  //     setPerks(data.perks);
-  //     setExtraInfo(data.extraInfo);
-  //     setCheckIn(data.checkIn);
-  //     setCheckOut(data.checkOut);
-  //     setMaxGuests(data.maxGuests);
-  //     setPrice(data.price);
-  //   });
-  // }, [id]);
   if (ready && !user) {
     return <Navigate to={"/login"} />;
   }
   return (
     <div>
       <AccountNav />
-      <div className="text-center">
+      <div className="text-center max-w-5xl mx-auto">
         <Link className="inline-flex gap-1 bg-primary text-white py-2 px-4 rounded-full mb-4" to={'/account/places/new'}>
           <Plus />
           Add new place
         </Link>
       </div>
       {places.length > 0 && places.map((place, index) => (
-        <Link to={'/account/places/' + place._id} key={index} className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl">
-          <div className="flex w-32 h-32 bg-gray-300 grow shrink-0">
+        <Link to={'/account/places/' + place._id} key={index} className="flex cursor-pointer gap-4 bg-gray-100 p-4 rounded-2xl mt-2 max-w-5xl mx-auto">
+          <div className="flex w-40 h-40 bg-gray-300 shrink-0">
             <PlaceImg place={place} />
-          </div>
+          </div>    
           <div className="grow-0 shrink">
-            <h2 className="text-xl">{place.title}</h2>
-            <p className="text-sm mt-2">{place.description}</p>
+            <h2 className="text-xl font-bold">{place.title}</h2>
+            <p className="text-sm mt-2 ">{place.description}</p>
           </div>
         </Link>
       ))}
