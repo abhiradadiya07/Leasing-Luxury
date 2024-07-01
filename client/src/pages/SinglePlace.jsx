@@ -1,3 +1,4 @@
+import AddressLink from "@/components/AddressLink";
 import BookingWidget from "@/components/BookingWidget";
 import PlaceGallery from "@/components/PlaceGallery";
 import axios from "axios";
@@ -23,7 +24,7 @@ const SinglePlace = () => {
     return (
         <div className="mt-4 px-4 pt-8 max-w-6xl mx-auto">
             <h1 className="text-3xl mb-4 font-semibold">{place.title}</h1>
-            {/* <AddressLink>{place.address}</AddressLink> */}
+            <AddressLink>{place.address}</AddressLink>
             <PlaceGallery place={place} />
             <div className="mt-8 mb-8 grid gap-8 grid-cols-1 md:grid-cols-[2fr_1fr]">
                 <div>

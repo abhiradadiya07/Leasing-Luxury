@@ -1,4 +1,5 @@
 import AccountNav from "@/components/AccountNav"
+import BookingDates from "@/components/BookingDates";
 import PlaceImg from "@/components/PlaceImg";
 import axios from "axios";
 import { CreditCard } from "lucide-react";
@@ -25,7 +26,7 @@ const Bookings = () => {
             <div className="py-3 pr-3 grow">
               <h2 className="text-md sm:text-xl font-normal">{booking.place.title}</h2>
               <div className="text-xl">
-                {/* <BookingDates booking={booking} className="mb-2 mt-4 text-gray-500" /> */}
+                <BookingDates booking={booking} className="mb-2 mt-4" />
                 <div className="flex gap-1">
                   <CreditCard size={27} />
                   <span className="text-md md:text-2xl font-semibold">
