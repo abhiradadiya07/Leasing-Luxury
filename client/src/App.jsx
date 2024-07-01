@@ -13,7 +13,7 @@ import NotFound from "./pages/NotFound";
 import SinglePlace from "./pages/SinglePlace";
 import SingleBooking from "./pages/SingleBooking";
 
-axios.defaults.baseURL = "http://localhost:4000/api";
+axios.defaults.baseURL = "https://leasing-luxury-api.vercel.app/api";
 axios.defaults.withCredentials = true;
 
 function App() {
