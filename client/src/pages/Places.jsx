@@ -34,8 +34,8 @@ export default function Places() {
             <PlaceImg place={place} />
           </div>    
           <div className="grow-0 shrink">
-            <h2 className="text-xl font-bold">{place.title}</h2>
-            <p className="text-sm mt-2 ">{place.description}</p>
+            <h2 className="text-2xl font-bold">{place.title}</h2>
+            <p className="text-md mt-2 ">{place.description}</p>
           </div>
         </Link>
       ))}

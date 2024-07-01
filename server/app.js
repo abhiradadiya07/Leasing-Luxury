@@ -66,9 +66,16 @@ app.get("/api/test", (req, res) => {
   res.json("test ok");
 });
 
+app.get("/", (req, res) => {
+  res.json("test ok");
+});
+
 app.post("/api/register", async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    if (!name || !email || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
     let savedUser = new UserModel({
       name,
       email,
@@ -83,6 +90,10 @@ app.post("/api/register", async (req, res) => {
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   try {
+    if (!email || !password) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
     const userDoc = await UserModel.findOne({ email });
     if (!userDoc) {
       return res.status(404).json({ message: "User not found" });
@@ -137,6 +148,9 @@ app.post("/api/logout", (req, res) => {
 
 app.post("/api/upload-by-link", async (req, res) => {
   const { link } = req.body;
+  if (!link) {
+    return res.status(422).json({ message: "Please provide a link" });
+  }
   const newName = "photo" + Date.now() + ".jpg";
   await imageDownloader.image({
     url: link,
@@ -239,6 +253,21 @@ app.post("/api/places", authMiddleware, async (req, res) => {
       maxGuests,
     } = req.body;
     // console.log(userData.id);
+
+    if (
+      !title ||
+      !address ||
+      !addedPhotos ||
+      !description ||
+      !price ||
+      !perks ||
+      !checkIn ||
+      !checkOut ||
+      !maxGuests
+    ) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
+
     let placeDoc = await PlaceModel.create({
       price,
       title,

@@ -55,6 +55,10 @@ const Login = () => {
             </Link>
           </div>
         </form>
+        <div className="text-center">
+          <h4>Test User : abhishek@gmail.com</h4>
+          Password : john123
+        </div>
       </div>
     </div>
   );
