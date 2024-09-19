@@ -14,6 +14,7 @@ import SinglePlace from "./pages/SinglePlace";
 import SingleBooking from "./pages/SingleBooking";
 
 axios.defaults.baseURL = "https://leasing-luxury-api.vercel.app/api";
+// axios.defaults.baseURL = "http://localhost:3000/api";
 axios.defaults.withCredentials = true;
 
 function App() {

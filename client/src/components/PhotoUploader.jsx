@@ -103,7 +103,7 @@ export default function PhotosUploader({
             </div>
           ))}
 
-        <Label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-transparent rounded-2xl p-2 text-2xl text-gray-400 font-medium">
+        <Label className="h-32 cursor-pointer flex items-center gap-1 justify-center border bg-card rounded-2xl p-2 text-2xl font-medium">
           <Input
             type="file"
             multiple

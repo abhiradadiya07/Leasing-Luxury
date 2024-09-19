@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 const PlacesForm = () => {
 
@@ -64,17 +65,35 @@ const PlacesForm = () => {
             maxGuests,
             price,
         };
-        if (id) {
-            // update
-            await axios.put("/places", {
-                id,
-                ...placeData,
+        try {
+            if (id) {
+                // update
+                await axios.put("/places", {
+                    id,
+                    ...placeData,
+                });
+                toast({
+                    title: "Success",
+                    description: "Place updated successfully!",
+                    variant: "success",
+                });
+            } else {
+                // new place
+                await axios.post("/places", placeData);
+                toast({
+                    title: "Success",
+                    description: "New place added successfully!",
+                    variant: "success",
+                });
+            }
+            setRedirect(true);
+        } catch (error) {
+            console.error("Error saving place:", error);
+            toast({
+                title: "Error",
+                description: "Failed to save place. Please try again.",
+                variant: "destructive",
             });
-            setRedirect(true);
-        } else {
-            // new place
-            await axios.post("/places", placeData);
-            setRedirect(true);
         }
     }
 
@@ -99,7 +118,7 @@ const PlacesForm = () => {
     return (
         <>
             <AccountNav />
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-5xl mx-auto dark:bg-secondary bg-gray-200 p-6 rounded-2xl">
                 <form onSubmit={savePlace}>
                     {preInput(
                         "Title",

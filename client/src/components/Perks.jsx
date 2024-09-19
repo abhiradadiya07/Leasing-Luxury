@@ -13,36 +13,25 @@ const Perks = ({ selected, onChange }) => {
   }
   return (
     <>
-      <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" checked={selected.includes('wifi')} name="wifi" onChange={handleCbClick} />
-        <Wifi size={23} />
-        <span>Wifi</span>
-      </label>
-      <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" checked={selected.includes('parking')} name="parking" onChange={handleCbClick} />
-        <SquareParking size={35} />
-        <span>Free parking spot</span>
-      </label>
-      <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" checked={selected.includes('tv')} name="tv" onChange={handleCbClick} />
-        <Monitor size={25} />
-        <span>TV</span>
-      </label>
-      <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" checked={selected.includes('radio')} name="radio" onChange={handleCbClick} />
-        <BoomBox />
-        <span>Radio</span>
-      </label>
-      <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" checked={selected.includes('pets')} name="pets" onChange={handleCbClick} />
-        <PawPrint />
-        <span>Pets</span>
-      </label>
-      <label className="border p-4 flex rounded-2xl gap-2 items-center cursor-pointer">
-        <input type="checkbox" checked={selected.includes('entrance')} name="entrance" onChange={handleCbClick} />
-        <DoorOpen size={40} />
-        <span>Private entrance</span>
-      </label>
+      {[
+        { name: 'wifi', icon: Wifi, label: 'Wifi', size: 23 },
+        { name: 'parking', icon: SquareParking, label: 'Free parking spot', size: 30 },
+        { name: 'tv', icon: Monitor, label: 'TV', size: 25 },
+        { name: 'radio', icon: BoomBox, label: 'Radio' },
+        { name: 'pets', icon: PawPrint, label: 'Pets' },
+        { name: 'entrance', icon: DoorOpen, label: 'Private entrance', size: 30 }
+      ].map(({ name, icon: Icon, label, size }) => (
+        <label key={name} className="p-4 flex rounded-2xl gap-2 items-center cursor-pointer border-white border-2 bg-background">
+          <input
+            type="checkbox"
+            checked={selected.includes(name)}
+            name={name}
+            onChange={handleCbClick}
+          />
+          <Icon size={size} />
+          <span>{label}</span>
+        </label>
+      ))}
     </>
   );
 }

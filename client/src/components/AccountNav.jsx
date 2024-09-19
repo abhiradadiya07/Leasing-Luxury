@@ -14,9 +14,9 @@ export default function AccountNav() {
   const linkClasses = useCallback((type) => {
     let classes = "px-6 mx-2 py-2 inline-flex justify-center gap-2 rounded-full";
     if (type === subpage) {
-      classes += " bg-primary text-white";
+      classes += " bg-primary text-white font-semibold";
     } else {
-      classes += " bg-gray-200";
+      classes += " bg-gray-200 dark:bg-secondary text-gray-700 dark:text-white";
     }
     return classes;
   }, [subpage])

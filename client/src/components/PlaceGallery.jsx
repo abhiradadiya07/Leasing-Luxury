@@ -10,7 +10,7 @@ export default function PlaceGallery({ place }) {
 
     if (showAllPhotos) {
         return (
-            <div className="absolute inset-0 bg-white text-white min-h-screen grow z-50">
+            <div className="absolute inset-0 bg-white dark:bg-background text-white min-h-screen grow z-50">
                 <div className="max-w-5xl mx-auto">
                     <div className="bg-white p-8 grid gap-4">
                         <div>
@@ -52,7 +52,7 @@ export default function PlaceGallery({ place }) {
                     </div>
                 </div>
             </div>
-            <button onClick={() => setShowAllPhotos(true)} className="flex gap-1 absolute bottom-2 right-2 py-2 px-4 bg-white rounded-2xl shadow-md shadow-gray-500">
+            <button onClick={() => setShowAllPhotos(true)} className="flex gap-1 absolute bottom-2 right-2 py-2 px-4 bg-white dark:bg-background rounded-2xl shadow-md shadow-gray-500">
                 <ImagePlus />
                 Show more photos
             </button>

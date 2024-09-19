@@ -22,7 +22,7 @@ const SinglePlace = () => {
 
 
     return (
-        <div className="mt-4 px-4 pt-8 max-w-6xl mx-auto">
+        <div className="mt-4 px-4 pt-8 max-w-6xl mx-auto bg-gray-200 dark:bg-secondary rounded-2xl p-3">
             <h1 className="text-3xl mb-4 font-semibold">{place.title}</h1>
             <AddressLink>{place.address}</AddressLink>
             <PlaceGallery place={place} />
@@ -40,15 +40,16 @@ const SinglePlace = () => {
                     <BookingWidget place={place} />
                 </div>
             </div>
-
-            {place.extraInfo && (
-                <div className="bg-white -mx-8 px-8 py-8 border-t">
-                    <h2 className="font-semibold text-2xl">Extra info</h2>
-                    <div className="mb-4 mt-2 text-sm text-gray-700 leading-5">
-                        {place.extraInfo}
+            <div className="bg-white dark:bg-background px-4 py-6 rounded-2xl">
+                {place.extraInfo && (
+                    <div>
+                        <h2 className="font-semibold text-2xl dark:text-white">Extra info</h2>
+                        <div className="mb-4 mt-2 text-sm text-muted-foreground leading-5">
+                            {place.extraInfo}
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     )
 }

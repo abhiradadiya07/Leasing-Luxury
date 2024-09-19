@@ -3,7 +3,7 @@ const Image = ({ src, ...rest }) => {
   src =
     src && src.includes("https://")
       ? src
-      : "https://leasing-luxury-api.vercel.app/uploads/" + src;
+      : "http://localhost:3000/uploads/" + src;
   return <img {...rest} src={src} alt={""} />;
 };
 

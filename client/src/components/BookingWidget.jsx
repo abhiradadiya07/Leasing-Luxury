@@ -46,7 +46,7 @@ export default function BookingWidget({ place }) {
     }
 
     return (
-        <div className="bg-white shadow-gray-400 shadow-sm drop-shadow-2xl p-4 rounded-2xl">
+        <div className="bg-white dark:bg-background shadow-gray-400 shadow-sm drop-shadow-2xl p-4 rounded-2xl">
             <div className="text-2xl text-center">
                 Price: ${place.price} / per night
             </div>
