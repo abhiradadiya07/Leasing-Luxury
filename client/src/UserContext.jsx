@@ -9,10 +9,10 @@ export function UserContextProvider({ children }) {
   const [loading, setLoading] = useState(true);
   const [ready, setReady] = useState(false);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (!user) {
-      axiosInstance.get('/profile', { withCredentials: true })
-        .then(({data}) => {
+      await axiosInstance.get('/profile', { withCredentials: true })
+        .then(({ data }) => {
           setUser(data);
           setReady(true);
           setLoading(false);
