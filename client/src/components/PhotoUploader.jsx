@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import { useState } from "react";
 import Image from "./Image";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import { CloudUpload, Star, Trash2 } from "lucide-react";
+import axiosInstance from "@/api/api";
 
 
 export default function PhotosUploader({
@@ -16,7 +16,7 @@ export default function PhotosUploader({
   async function addPhotoByLink(ev) {
     ev.preventDefault();
     try {
-      const { data: filename } = await axios.post("/upload-by-link", {
+      const { data: filename } = await axiosInstance.post("/upload-by-link", {
         link: photoLink,
       });
       onChange([...addedPhotos, filename]);
@@ -34,7 +34,7 @@ export default function PhotosUploader({
         data.append("photos", files[i]);
       }
     }
-    axios
+    axiosInstance
       .post("/upload", data, {
         headers: { "Content-type": "multipart/form-data" },
       })

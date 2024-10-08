@@ -2,17 +2,17 @@ import AccountNav from "@/components/AccountNav"
 import BookingDates from "@/components/BookingDates";
 import PlaceImg from "@/components/PlaceImg";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import { CreditCard } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import axiosInstance from "@/api/api";
 
 const Bookings = () => {
   const [bookings, setBookings] = useState([]);
 
   useEffect(() => {
-    axios.get('/bookings').then(response => {
+    axiosInstance.get('/bookings').then(response => {
       setBookings(response.data);
     });
   }, []);
@@ -45,7 +45,7 @@ const Bookings = () => {
                 onClick={(e) => {
                   e.preventDefault();
                   if (window.confirm('Are you sure you want to cancel this booking?')) {
-                    axios.post(`/bookings/${booking._id}/cancel`)
+                    axiosInstance.post(`/bookings/${booking._id}/cancel`)
                       .then(() => {
                         setBookings(bookings.filter(b => b._id !== booking._id));
                         toast({

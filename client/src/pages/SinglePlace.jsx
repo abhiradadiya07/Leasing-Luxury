@@ -1,7 +1,7 @@
+import axiosInstance from "@/api/api";
 import AddressLink from "@/components/AddressLink";
 import BookingWidget from "@/components/BookingWidget";
 import PlaceGallery from "@/components/PlaceGallery";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -13,7 +13,7 @@ const SinglePlace = () => {
         if (!id) {
             return;
         }
-        axios.get(`/places/${id}`).then(response => {
+        axiosInstance.get(`/places/${id}`).then(response => {
             setPlace(response.data);
         });
     }, [id]);

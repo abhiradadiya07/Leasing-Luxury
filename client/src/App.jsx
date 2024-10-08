@@ -3,7 +3,6 @@ import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Layout from "./Layout";
 import Register from "./pages/Register";
-import axios from "axios";
 import { UserContextProvider } from "./UserContext";
 import Profile from "./pages/Profile";
 import Places from "./pages/Places";
@@ -12,10 +11,6 @@ import PlacesForm from "./pages/PlacesForm";
 import NotFound from "./pages/NotFound";
 import SinglePlace from "./pages/SinglePlace";
 import SingleBooking from "./pages/SingleBooking";
-
-axios.defaults.baseURL = "https://leasing-luxury-api.vercel.app/api";
-// axios.defaults.baseURL = "http://localhost:3000/api";
-axios.defaults.withCredentials = true;
 
 function App() {
 

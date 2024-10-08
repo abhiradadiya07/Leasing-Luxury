@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useState } from "react";
 import { differenceInCalendarDays } from "date-fns";
-import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { UserContext } from "@/UserContext";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import axiosInstance from "@/api/api";
 
 export default function BookingWidget({ place }) {
     const [checkIn, setCheckIn] = useState('');
@@ -32,7 +32,7 @@ export default function BookingWidget({ place }) {
             setRedirect('/login')
             return
         }
-        const response = await axios.post('/bookings', {
+        const response = await axiosInstance.post('/bookings', {
             checkIn, checkOut, numberOfGuests, name, phone,
             place: place._id,
             price: numberOfNights * place.price,

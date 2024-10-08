@@ -3,17 +3,17 @@ import { Link, Navigate } from "react-router-dom";
 import { Plus } from "lucide-react";
 import AccountNav from "@/components/AccountNav.jsx";
 import { useContext, useEffect, useState } from "react";
-import axios from "axios";
 import PlaceImg from "@/components/PlaceImg";
 import { UserContext } from "@/UserContext";
 import { toast } from "@/hooks/use-toast";
+import axiosInstance from "@/api/api";
 
 export default function Places() {
   const [places, setPlaces] = useState([]);
   const { ready, user } = useContext(UserContext);
 
   useEffect(() => {
-    axios.get('/user-places').then(({ data }) => {
+    axiosInstance.get('/user-places').then(({ data }) => {
       setPlaces(data);
     });
   }, []);
@@ -44,7 +44,7 @@ export default function Places() {
             onClick={(e) => {
               e.preventDefault();
               if (window.confirm('Are you sure you want to cancel this place?')) {
-                axios.delete(`/places/${place._id}`)
+                axiosInstance.delete(`/places/${place._id}`)
                   .then(() => {
                     setPlaces(places.filter(p => p._id !== place._id));
                     toast({

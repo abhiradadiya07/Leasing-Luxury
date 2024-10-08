@@ -1,12 +1,12 @@
+import axiosInstance from "@/api/api";
 import Image from "@/components/Image";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Index = () => {
   const [places, setPlaces] = useState([]);
   useEffect(() => {
-    axios.get('/places').then(response => {
+    axiosInstance.get('/places').then(response => {
       setPlaces(response.data);
     });
   }, []);

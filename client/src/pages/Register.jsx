@@ -5,6 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import axiosInstance from "@/api/api";
 
 const Register = () => {
   const { toast } = useToast();
@@ -16,13 +17,12 @@ const Register = () => {
   async function registerUser(ev) {
     ev.preventDefault();
     try {
-      const response = await axios.post("/register", {
+      const response = await axiosInstance.post("/register", {
         name,
         email,
         password,
       });
       const { message } = response.data;
-      console.log(message,"*************");
       toast({
         title: "Success",
         description: message,

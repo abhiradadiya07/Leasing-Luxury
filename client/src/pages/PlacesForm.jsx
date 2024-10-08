@@ -5,10 +5,10 @@ import PhotosUploader from "@/components/PhotoUploader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
+import axiosInstance from "@/api/api";
 
 const PlacesForm = () => {
 
@@ -32,7 +32,7 @@ const PlacesForm = () => {
         if (!id) {
             return;
         }
-        axios.get('/places/' + id).then(response => {
+        axiosInstance.get('/places/' + id).then(response => {
             const { data } = response;
             setTitle(data.title);
             setAddress(data.address);
@@ -68,7 +68,7 @@ const PlacesForm = () => {
         try {
             if (id) {
                 // update
-                await axios.put("/places", {
+                await axiosInstance.put("/places", {
                     id,
                     ...placeData,
                 });
@@ -79,7 +79,7 @@ const PlacesForm = () => {
                 });
             } else {
                 // new place
-                await axios.post("/places", placeData);
+                await axiosInstance.post("/places", placeData);
                 toast({
                     title: "Success",
                     description: "New place added successfully!",

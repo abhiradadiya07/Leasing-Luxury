@@ -3,7 +3,6 @@ const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-// const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const multer = require("multer");
 const fs = require("fs");
 const { connectDb } = require("./dbConnection");
@@ -13,13 +12,11 @@ const imageDownloader = require("image-downloader");
 const UserModel = require("./model/User");
 const PlaceModel = require("./model/Place");
 const BookingModel = require("./model/Booking");
-// const { uploadToCloudinary } = require("./helper/upload");
 const { authMiddleware } = require("./middleware/authToken");
 
 // Database connection
 connectDb();
 const bcryptSalt = bcrypt.genSaltSync(10);
-// const process.env.JWT_SECRET = "dshfoiyoifdhvlkcxvnhljkd";
 
 app.use(express.json());
 app.use(cookieParser());
@@ -28,7 +25,7 @@ app.use(
   cors({
     credentials: true,
     origin: true,
-    exposedHeaders: "token",
+    exposedHeaders: "Authorization",
   })
 );
 
@@ -73,11 +70,13 @@ app.post("/api/register", async (req, res) => {
 
 app.post("/api/login", async (req, res) => {
   try {
+    console.log("userDoc");
     const { email, password } = req.body;
     if (!email || !password) {
       return res.status(400).json({ error: "All fields are required" });
     }
     const userDoc = await UserModel.findOne({ email });
+
     if (!userDoc) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -91,6 +90,7 @@ app.post("/api/login", async (req, res) => {
       { expiresIn: "1d" }
     );
     res
+      .header("Authorization", `Bearer ${token}`)
       .cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
@@ -106,6 +106,8 @@ app.post("/api/login", async (req, res) => {
 });
 
 app.get("/api/profile", authMiddleware, async (req, res) => {
+  console.log("profile si ");
+
   res.json(req.user);
 });
 
@@ -147,6 +149,8 @@ app.post(
         const { path } = file;
         uploadedFiles.push(path.replace("uploads", ""));
       }
+      console.log(uploadedFiles);
+
       res.json(uploadedFiles);
     } catch (error) {
       console.error("Error uploading files:", error);

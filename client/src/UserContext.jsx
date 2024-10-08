@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { createContext, useState, useEffect } from "react";
-import axios from "axios";
+import axiosInstance from "./api/api";
 
 export const UserContext = createContext({});
 
@@ -11,7 +11,7 @@ export function UserContextProvider({ children }) {
 
   useEffect(() => {
     if (!user) {
-      axios.get('/profile', { withCredentials: true })
+      axiosInstance.get('/profile', { withCredentials: true })
         .then(({data}) => {
           setUser(data);
           setReady(true);

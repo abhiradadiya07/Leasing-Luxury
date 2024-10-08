@@ -1,7 +1,7 @@
+import axiosInstance from "@/api/api";
 import AddressLink from "@/components/AddressLink";
 import BookingDates from "@/components/BookingDates";
 import PlaceGallery from "@/components/PlaceGallery";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -11,7 +11,7 @@ const SingleBooking = () => {
     const [booking, setBooking] = useState(null);
     useEffect(() => {
         if (id) {
-            axios.get('/bookings').then(response => {
+            axiosInstance.get('/bookings').then(response => {
                 const foundBooking = response.data.find(({ _id }) => _id === id);
                 if (foundBooking) {
                     setBooking(foundBooking);
